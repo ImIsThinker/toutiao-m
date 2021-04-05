@@ -5,7 +5,12 @@ Vue.use(VueRouter)
 
 // 路由表
 const routes = [
-
+  // 登录路由
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login')
+  }
 ]
 
 const router = new VueRouter({
