@@ -9,7 +9,9 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 // 动态设置 rem 基准值 不需要接收返回值
 import 'amfe-flexible'
-
+// 加载dayjs初始化配置文件
+import '@/utils/dayjs'
+// 是阻止显示生产模式的消息
 Vue.config.productionTip = false
 // 全局注册 使用 Vant组件库
 Vue.use(Vant)

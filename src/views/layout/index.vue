@@ -21,7 +21,7 @@
                 <i slot="icon" class="toutiao toutiao-shipin"></i>
             </van-tabbar-item>
              <van-tabbar-item to="/my" >
-                <span class="text">我的</span>
+                <span class="text">{{ $store.state.user ? '我的' : '未登录' }}</span>
                 <i slot="icon" class="toutiao toutiao-wode"></i>
             </van-tabbar-item>
         </van-tabbar>

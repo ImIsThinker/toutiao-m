@@ -6,11 +6,11 @@
           <div class="left">
             <van-image
             round
-            src="https://img01.yzcdn.cn/vant/cat.jpeg"
+            :src="userInfo.photo"
             class="avatar"
             fit="cover"
           />
-          <span class="name">跳跳好</span>
+          <span class="name">{{ userInfo.intro }}</span>
           </div>
           <div class="right">
             <!-- round 圆角 -->
@@ -19,20 +19,20 @@
         </div>
         <div class="data-status">
           <div class="data-item">
-            <span class="count">10</span>
+            <span class="count">{{ userInfo.art_count }}</span>
+            <span class="text">头条</span>
+          </div>
+          <div class="data-item">
+            <span class="count">{{ userInfo.follow_count }}</span>
             <span class="text">关注</span>
           </div>
           <div class="data-item">
-            <span class="count">10</span>
+            <span class="count">{{ userInfo.fans_count }}</span>
             <span class="text">粉丝</span>
           </div>
           <div class="data-item">
-            <span class="count">10</span>
+            <span class="count">{{ userInfo.like_count }}</span>
             <span class="text">获赞</span>
-          </div>
-          <div class="data-item">
-            <span class="count">10</span>
-            <span class="text">头条</span>
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@
       <!-- 未登录状态 -->
       <!-- 宫格导航 -->
       <!-- clickable 是否开启格子点击反馈 -->
-        <van-grid clickable :column-num="2" class="grid-nav mg-9">
+        <van-grid clickable :column-num="2" class="grid-nav mg-65">
           <van-grid-item class="grid-item">
             <i slot="icon" class="toutiao toutiao-shoucang"></i>
             <span slot="text" class="text">收藏</span>
@@ -59,8 +59,8 @@
         </van-grid>
         <!-- 宫格导航 -->
         <!-- Cell单元格 -->
-        <van-cell title="消息通知" />
-        <van-cell title="小智同学"  />
+        <van-cell is-link title="消息通知" />
+        <van-cell is-link title="小智同学"  />
         <van-cell
           v-if="user"
           class="logout-cell"
@@ -73,10 +73,49 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import { getUserInfo } from '@/api/user'
 export default {
   name: 'MyIndex',
   computed: {
     ...mapState(['user'])
+  },
+  created () {
+    if (this.user) {
+      this.getUserInfo()
+    }
+  },
+  data () {
+    return {
+      userInfo: {} // 用户信息
+    }
+  },
+  methods: {
+    onLogout () {
+      // 消息提示
+      // 在组件中要使用 this.$dialog调用dialog组件
+      this.$dialog.confirm({
+        title: '退出',
+        message: '确认退出吗'
+      })
+        .then(() => {
+          // 清除vuex中数据
+          this.$store.commit('setUser', null)
+        })
+        .catch(() => {
+          console.log('确认取消')
+        })
+    },
+    // 获取用户信息
+    async getUserInfo () {
+      try {
+        const { data } = await getUserInfo()
+        this.userInfo = data.data
+        // console.log(data)
+      } catch (error) {
+        this.$toast('获取用户资料失败、稍后再试')
+        console.log(error)
+      }
+    }
   }
 }
 </script>
@@ -168,12 +207,14 @@ export default {
             }
           }
         }
-        .mg-9 {
-          margin-bottom: -65px;
-        }
         .logout-cell {
+          height: 50px;
+          margin-top: 30px;
           text-align: center;
           color: #d86262;
+        }
+        .mg-65 {
+          margin-bottom: -50px;
         }
   }
 </style>
