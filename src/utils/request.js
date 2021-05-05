@@ -13,7 +13,7 @@ request.interceptors.request.use(config => {
     config.headers.Authorization = `Bearer ${user.token}`
   }
   // config 本次请求的配置对象
-  console.log(config)
+  // console.log(config)
   // 必须返回config 否则请求会停留在这里、出不去
   return config
 }, error => {

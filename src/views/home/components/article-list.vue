@@ -100,7 +100,6 @@ export default {
           JSON.parse('dhshdsdls')
         } */
         // 请求获取数据
-        // 请求获取数据
         const { data } = await getArticles({
           channel_id: this.channel.id, // 频道ID 父组件传到子组件的值可以在子组件中使用this获取
           timestamp: Date.now(), // 下拉刷新获取最新数据就是最新时间戳

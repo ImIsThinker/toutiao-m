@@ -38,6 +38,12 @@ const routes = [
         component: () => import('@/views/my')
       }
     ]
+  },
+  // 搜索路由 他是一级路由
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import('@/views/search')
   }
 ]
 
