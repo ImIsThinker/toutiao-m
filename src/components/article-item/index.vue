@@ -1,6 +1,23 @@
 <template>
     <div>
-        <van-cell class="article-item">
+        <!--
+            to 属性支持路由跳转，他和VueRouter中的routerLink组件的to属性用法一样的
+            一种是:to="'/article/' + article.art_id"
+            另一种是 :to="`/article/${article.art_id}`"
+            这两种方式的实质就是拼字符串
+            还有另一种用法就是给to属性一个对象
+         -->
+        <van-cell class="article-item"
+        :to="{
+            // 根据路由名称进行跳转
+            name: 'article',
+            // 传递路由动态参数
+            params: {
+                // 属性名：路由路径中设计的动态参数名称
+                articleId: article.art_id
+            }
+        }"
+        >
             <!-- van-multi-ellipsis--l2 最多显示两行 -->
             <div slot="title" class="title van-multi-ellipsis--l2">{{article.title}}</div>
             <div slot="label">

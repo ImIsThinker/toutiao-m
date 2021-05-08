@@ -44,6 +44,19 @@ const routes = [
     path: '/search',
     name: 'search',
     component: () => import('@/views/search')
+  },
+  // 文章路由
+  {
+    path: '/article/:articleId',
+    name: 'article',
+    component: () => import('@/views/article'),
+    props: true // 在路由中开启路由传参、就是把路由参数映射为组件的props属性
+  },
+  // 测试路由
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('@/views/test')
   }
 ]
 
